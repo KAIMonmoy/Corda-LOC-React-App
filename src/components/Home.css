@@ -1,0 +1,59 @@
+html,
+body {
+	height: 100%;
+}
+
+.full-height {
+	height: 100vh;
+}
+
+.full-width {
+	width: 100vw;
+}
+
+.profile-column {
+	background-color: #42bfdd;
+}
+
+.tx-list-column {
+	background-color: #f0f6f6;
+	height: 100vh;
+	overflow-y: scroll;
+}
+
+.ui.card > .image,
+.ui.cards > .card > .image {
+	background-color: white;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.new-tx-button {
+	margin-top: 10px !important;
+	height: 80px !important;
+	font-size: larger !important;
+	color: white !important;
+	font-weight: bold !important;
+	background-color: #084b83 !important;
+}
+
+.tx-status {
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+	align-items: center !important;
+}
+
+.tx-status p {
+	margin-top: 10px;
+	font-size: larger;
+	color: black;
+	font-weight: bold;
+	text-align: center;
+}
+
+.reload-button {
+	background-color: #42bfdd !important;
+	margin-top: 70px !important;
+	margin-left: 14px !important;
+}

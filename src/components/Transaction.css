@@ -1,0 +1,60 @@
+html,
+body {
+	height: 100%;
+}
+
+.full-height {
+	height: 100vh;
+}
+
+.full-width {
+	width: 100vw;
+}
+
+.close-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 1000;
+}
+
+.center-items {
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+}
+
+#apply-loc-screen {
+	overflow-y: scroll;
+}
+
+.zero-opacity {
+	opacity: 0;
+}
+
+.bol-button,
+.loc-button,
+.po-button {
+	position: absolute;
+	top: 150px;
+	right: 25px;
+	z-index: 1000;
+	width: 125px !important;
+}
+
+.loc-button {
+	top: 260px;
+}
+
+.bol-button {
+	top: 370px;
+}
+
+#bol-modal,
+#loc-modal,
+#po-modal {
+	position: absolute;
+	top: 50px;
+	left: calc(50% - 360px);
+	width: 720px !important;
+}
