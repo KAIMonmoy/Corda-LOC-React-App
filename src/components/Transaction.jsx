@@ -34,183 +34,31 @@ export default class Transaction extends Component {
 
 		const txType = this.props.match.params.type;
 		const stateId = this.props.match.params.type;
-		let txURL = `http://${window.location.host}/api/example/transaction`;
 
+		const baseURL = `http://${window.location.host}/api/example`;
+
+		let txURL;
 		if (txType === 'po' || txType === 'loc') {
-			txURL = `${txURL}/${txType}/${stateId}`;
+			txURL = `${baseURL}/transaction/${txType}/${stateId}`;
 		}
 
-		// ! Fetch Real Data
-		// fetch(`http://${window.location.host}/api/example/peers`)
-		// 	.then((res) => res.json())
-		// 	.then((json) => {
-		// 		this.setState({
-		// 			transactions: json
-		// 		});
-		// 	})
-		// 	.catch((err) => {
-		// 		console.error(err);
-		// 	});
-
-		if (txType === 'new') {
-			setTimeout(() => {
-				this.setState({
-					transaction: [],
-					isFetching: false
+		if (txType === 'po' || txType === 'loc') {
+			fetch(txURL)
+				.then((res) => res.json())
+				.then((json) => {
+					this.setState({
+						transactions: json['states'],
+						isFetching: false
+					});
+				})
+				.catch((err) => {
+					console.error(err);
 				});
-			}, 0);
-		} else if (txType === 'po') {
-			setTimeout(() => {
-				this.setState({
-					transaction: [
-						{
-							state: {
-								data: {
-									'@class': 'com.example.state.PurchaseOrderState',
-									purchaseOrderId: '01426139-a1d6-4d00-9db7-d84d94d3dc01',
-									seller: 'O=ChittagongTraders, L=Chittagong, C=BD',
-									buyer: 'O=KowloonTraders, L=Kowloon, C=HK',
-									purchaseOrderIssueDate: '01-01-2020',
-									productName: 'C',
-									productQuantity: 1,
-									productPriceInUSD: 1,
-									productGrossWeightInKG: 1
-								},
-								contract: 'com.example.contract.LetterOfCreditContract',
-								notary: 'O=Notary, L=London, C=GB',
-								encumbrance: null,
-								constraint: {
-									'@class': 'net.corda.core.contracts.SignatureAttachmentConstraint',
-									key:
-										'aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6'
-								}
-							},
-							ref: {
-								txhash: 'BA1A4D4F6F6EC72B44E267FA2FFAC219D4A8D5FCB11274D1B58AD80C63A2F9DA',
-								index: 0
-							}
-						},
-						null,
-						null
-					],
-					isFetching: false
-				});
-			}, 1000);
-		} else if (txType === 'loc') {
-			setTimeout(() => {
-				this.setState({
-					transaction: [
-						{
-							state: {
-								data: {
-									'@class': 'com.example.state.PurchaseOrderState',
-									purchaseOrderId: 'd7641897-88f4-413a-a2d7-7419e1df6d44',
-									seller: 'O=ChittagongTraders, L=Chittagong, C=BD',
-									buyer: 'O=KowloonTraders, L=Kowloon, C=HK',
-									purchaseOrderIssueDate: '01-01-2020',
-									productName: 'B',
-									productQuantity: 1,
-									productPriceInUSD: 1,
-									productGrossWeightInKG: 1
-								},
-								contract: 'com.example.contract.LetterOfCreditContract',
-								notary: 'O=Notary, L=London, C=GB',
-								encumbrance: null,
-								constraint: {
-									'@class': 'net.corda.core.contracts.SignatureAttachmentConstraint',
-									key:
-										'aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6'
-								}
-							},
-							ref: {
-								txhash: '9384052071E15B4D809556C63588EA8D17578730D43FF10D5C1AAA9DC7A80C8F',
-								index: 0
-							}
-						},
-						{
-							state: {
-								data: {
-									'@class': 'com.example.state.LetterOfCreditState',
-									locId: '762a3b84-cdeb-4c20-83e0-3092d75d955f',
-									locType: 'A',
-									locExpiryDate: '01-01-2020',
-									seller: 'O=ChittagongTraders, L=Chittagong, C=BD',
-									buyer: 'O=KowloonTraders, L=Kowloon, C=HK',
-									advisingBank: 'O=DhakaBank, L=Dhaka, C=BD',
-									issuingBank: 'O=KowloonBank, L=Kowloon, C=HK',
-									locValue: 10,
-									loadingPortAddress: 'A',
-									loadingPortCity: 'A',
-									loadingPortCountry: 'A',
-									dischargePortAddress: 'A',
-									dischargePortCity: 'A',
-									dischargePortCountry: 'A',
-									productName: 'B',
-									productQuantity: 1,
-									productPriceInUSD: 1,
-									productGrossWeightInKG: 1,
-									locStatus: 'ISSUING_BANK_PAID',
-									purchaseOrderId: 'd7641897-88f4-413a-a2d7-7419e1df6d44',
-									billOfLadingId: '22b7438c-db9c-4477-8f75-304240780b2e'
-								},
-								contract: 'com.example.contract.LetterOfCreditContract',
-								notary: 'O=Notary, L=London, C=GB',
-								encumbrance: null,
-								constraint: {
-									'@class': 'net.corda.core.contracts.SignatureAttachmentConstraint',
-									key:
-										'aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6'
-								}
-							},
-							ref: {
-								txhash: 'A23AA0BAC9FFE6C71A71FD6060C37E9B18399C625616BA50763AD534B524FC97',
-								index: 0
-							}
-						},
-						{
-							state: {
-								data: {
-									'@class': 'com.example.state.BillOfLadingState',
-									billOfLadingId: '22b7438c-db9c-4477-8f75-304240780b2e',
-									currentOwner: 'O=KowloonTraders, L=Kowloon, C=HK',
-									seller: 'O=ChittagongTraders, L=Chittagong, C=BD',
-									buyer: 'O=KowloonTraders, L=Kowloon, C=HK',
-									advisingBank: 'O=DhakaBank, L=Dhaka, C=BD',
-									issuingBank: 'O=KowloonBank, L=Kowloon, C=HK',
-									carrierCompanyName: 'A',
-									carrierName: 'A',
-									loadingDate: '01-01-2020',
-									dischargeDate: '01-01-2020',
-									productName: 'B',
-									productDescription: '2 items damaged.',
-									productQuantity: 1,
-									productPriceInUSD: 1,
-									productGrossWeightInKG: 1,
-									loadingPortAddress: 'A',
-									loadingPortCity: 'A',
-									loadingPortCountry: 'A',
-									dischargePortAddress: 'A',
-									dischargePortCity: 'A',
-									dischargePortCountry: 'A'
-								},
-								contract: 'com.example.contract.LetterOfCreditContract',
-								notary: 'O=Notary, L=London, C=GB',
-								encumbrance: null,
-								constraint: {
-									'@class': 'net.corda.core.contracts.SignatureAttachmentConstraint',
-									key:
-										'aSq9DsNNvGhYxYyqA9wd2eduEAZ5AXWgJTbTEw3G5d2maAq8vtLE4kZHgCs5jcB1N31cx1hpsLeqG2ngSysVHqcXhbNts6SkRWDaV7xNcr6MtcbufGUchxredBb6'
-								}
-							},
-							ref: {
-								txhash: 'A23AA0BAC9FFE6C71A71FD6060C37E9B18399C625616BA50763AD534B524FC97',
-								index: 1
-							}
-						}
-					],
-					isFetching: false
-				});
-			}, 1000);
+		} else {
+			this.setState({
+				transaction: [],
+				isFetching: false
+			});
 		}
 	}
 
@@ -625,32 +473,46 @@ export default class Transaction extends Component {
 										toggleLoadingState={this.toggleLoadingState}
 									/>
 								)}
-								{/* //! OtherPartyTaskScreen Demo ---------------------------- */}
-								{/* <OtherPartyTaskScreen
-									icon={letterOfCreditStageIcons[txStatusNo]}
-									message={
-										<p>
-											<br /> Buyer: {myIdentity} <br /> is working on <br /> {txStatus}
-										</p>
-									}
-								/> */}
-								{/* //! ------------------------------------------------------- */}
-								{txStatusNo === 1 && (
-									<ApplyForLOCScreen
-										{...this.props}
-										purchaseOrder={this.state.transaction[0]}
-										handleOnApplyLOC={this.handleOnApplyLOC}
-										toggleLoadingState={this.toggleLoadingState}
-									/>
-								)}
-								{txStatusNo === 2 && (
-									<ApproveLOCScreen
-										{...this.props}
-										loc={this.state.transaction[0]}
-										handleOnApproveLOC={this.handleOnApproveLOC}
-										toggleLoadingState={this.toggleLoadingState}
-									/>
-								)}
+								{txStatusNo === 1 &&
+									(myIdentity != this.state.transaction[0]['buyer'] ? (
+										<OtherPartyTaskScreen
+											icon={letterOfCreditStageIcons[1]}
+											message={
+												<p>
+													<br /> {`Buyer: ${this.state.transaction[0]['buyer']}`}
+													<br /> is working on
+													<br /> {letterOfCreditStages[1]}!
+												</p>
+											}
+										/>
+									) : (
+										<ApplyForLOCScreen
+											{...this.props}
+											purchaseOrder={this.state.transaction[0]}
+											handleOnApplyLOC={this.handleOnApplyLOC}
+											toggleLoadingState={this.toggleLoadingState}
+										/>
+									))}
+								{txStatusNo === 2 &&
+									(myIdentity != this.state.transaction[1]['issuingBank'] ? (
+										<OtherPartyTaskScreen
+											icon={letterOfCreditStageIcons[txStatusNo]}
+											message={
+												<p>
+													<br /> {`Issuing Bank: ${this.state.transaction[1]['issuingBank']}`}
+													<br /> is working on
+													<br /> {letterOfCreditStages[txStatusNo]}!
+												</p>
+											}
+										/>
+									) : (
+										<ApproveLOCScreen
+											{...this.props}
+											loc={this.state.transaction[1]}
+											handleOnApproveLOC={this.handleOnApproveLOC}
+											toggleLoadingState={this.toggleLoadingState}
+										/>
+									))}
 								{txStatusNo === 3 && (
 									<OtherPartyTaskScreen
 										icon={letterOfCreditStageIcons[3]}
@@ -661,38 +523,87 @@ export default class Transaction extends Component {
 										}
 									/>
 								)}
-								{txStatusNo === 4 && (
-									<ShipProductsScreen
-										{...this.props}
-										loc={this.state.transaction[1]}
-										handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
-										toggleLoadingState={this.toggleLoadingState}
-									/>
-								)}
-								{txStatusNo === 5 && (
-									<PaySellerScreen
-										{...this.props}
-										loc={this.state.transaction[1]}
-										handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
-										toggleLoadingState={this.toggleLoadingState}
-									/>
-								)}
-								{txStatusNo === 6 && (
-									<PayAdvisingBankScreen
-										{...this.props}
-										loc={this.state.transaction[1]}
-										handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
-										toggleLoadingState={this.toggleLoadingState}
-									/>
-								)}
-								{txStatusNo === 7 && (
-									<PayIssuingBankScreen
-										{...this.props}
-										loc={this.state.transaction[1]}
-										handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
-										toggleLoadingState={this.toggleLoadingState}
-									/>
-								)}
+								{txStatusNo === 4 &&
+									(myIdentity != this.state.transaction[1]['seller'] ? (
+										<OtherPartyTaskScreen
+											icon={letterOfCreditStageIcons[txStatusNo]}
+											message={
+												<p>
+													<br /> {`Seller: ${this.state.transaction[1]['seller']}`}
+													<br /> is working on
+													<br /> {letterOfCreditStages[txStatusNo]}!
+												</p>
+											}
+										/>
+									) : (
+										<ShipProductsScreen
+											{...this.props}
+											loc={this.state.transaction[1]}
+											handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
+											toggleLoadingState={this.toggleLoadingState}
+										/>
+									))}
+								{txStatusNo === 5 &&
+									(myIdentity != this.state.transaction[1]['advisingBank'] ? (
+										<OtherPartyTaskScreen
+											icon={letterOfCreditStageIcons[txStatusNo]}
+											message={
+												<p>
+													<br />{' '}
+													{`Advising Bank: ${this.state.transaction[1]['advisingBank']}`}
+													<br /> is working on
+													<br /> {letterOfCreditStages[txStatusNo]}!
+												</p>
+											}
+										/>
+									) : (
+										<PaySellerScreen
+											{...this.props}
+											loc={this.state.transaction[1]}
+											handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
+											toggleLoadingState={this.toggleLoadingState}
+										/>
+									))}
+								{txStatusNo === 6 &&
+									(myIdentity != this.state.transaction[1]['issuingBank'] ? (
+										<OtherPartyTaskScreen
+											icon={letterOfCreditStageIcons[txStatusNo]}
+											message={
+												<p>
+													<br /> {`Issuing Bank: ${this.state.transaction[1]['issuingBank']}`}
+													<br /> is working on
+													<br /> {letterOfCreditStages[txStatusNo]}!
+												</p>
+											}
+										/>
+									) : (
+										<PayAdvisingBankScreen
+											{...this.props}
+											loc={this.state.transaction[1]}
+											handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
+											toggleLoadingState={this.toggleLoadingState}
+										/>
+									))}
+								{txStatusNo === 7 &&
+									(myIdentity != this.state.transaction[1]['buyer'] ? (
+										<OtherPartyTaskScreen
+											icon={letterOfCreditStageIcons[txStatusNo]}
+											message={
+												<p>
+													<br /> {`Buyer: ${this.state.transaction[1]['buyer']}`}
+													<br /> is working on
+													<br /> {letterOfCreditStages[txStatusNo]}!
+												</p>
+											}
+										/>
+									) : (
+										<PayIssuingBankScreen
+											{...this.props}
+											loc={this.state.transaction[1]}
+											handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
+											toggleLoadingState={this.toggleLoadingState}
+										/>
+									))}
 								{txStatusNo === 8 && (
 									<OtherPartyTaskScreen
 										icon={letterOfCreditStageIcons[8]}

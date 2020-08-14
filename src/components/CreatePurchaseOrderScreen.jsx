@@ -15,17 +15,12 @@ export default class CreatePurchaseOrderScreen extends Component {
 	}
 
 	handleOnSubmit = (event) => {
-		//TODO: make real api call
 		event.preventDefault();
-		// 	{
-		// 		"buyer": "O=KowloonTraders,L=Kowloon,C=HK",
-		// 		"purchaseOrderIssueDate": "01-01-2020",
-		// 		"productName": "A",
-		// 		"productQuantity": 1,
-		// 		"productPriceInUSD": 1,
-		// 		"productGrossWeightInKG": 1
-		// }
+
+		const baseURL = `http://${window.location.host}/api/example`;
+
 		this.props.toggleLoadingState();
+
 		const requestJSON = JSON.stringify({
 			buyer: this.state.buyer,
 			purchaseOrderIssueDate: this.state.purchaseOrderIssueDate,
@@ -34,25 +29,24 @@ export default class CreatePurchaseOrderScreen extends Component {
 			productPriceInUSD: this.state.productPriceInUSD,
 			productGrossWeightInKG: this.state.productGrossWeightInKG
 		});
-		//TODO: update state with appropriate result
-		console.log(requestJSON);
-		setTimeout(() => {
-			this.props.toggleLoadingState();
-			this.props.handleOnCreatePurchaseOrder({
-				state: {
-					data: {
-						purchaseOrderId: '74ea7485-c5f8-48c4-8db2-ddbd16b8bf21',
-						seller: 'O=ChittagongTraders, L=Chittagong, C=BD',
-						buyer: 'O=KowloonTraders, L=Kowloon, C=HK',
-						purchaseOrderIssueDate: '01-01-2020',
-						productName: 'A',
-						productQuantity: 1,
-						productPriceInUSD: 1,
-						productGrossWeightInKG: 1
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: requestJSON
+		};
+		fetch(`${baseURL}/create-purchase-order`, requestOptions)
+			.then((response) => response.json())
+			.then((result) => {
+				this.props.handleOnCreatePurchaseOrder({
+					state: {
+						data: result['purchase_order']
 					}
-				}
+				});
+				this.props.toggleLoadingState();
+			})
+			.catch((err) => {
+				console.error(err);
 			});
-		}, 1000);
 	};
 
 	render() {

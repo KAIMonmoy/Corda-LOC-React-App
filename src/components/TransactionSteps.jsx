@@ -28,7 +28,7 @@ export default function TransactionSteps(props) {
 					return null;
 				let stepState;
 				if (index < txStatusNo) stepState = 'completed';
-				else if (index == txStatusNo) stepState = 'active';
+				else if (index === txStatusNo) stepState = 'active';
 				else stepState = 'disabled';
 				return (
 					<TransactionStep

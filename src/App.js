@@ -17,47 +17,30 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		//TODO: Change BaseURL After test
-		const BaseURL =
-			// `http://${window.location.host}/api/example`;
-			`https://b9b84b1a-f0b9-421e-866a-520d61b3bdb9.mock.pstmn.io/api/example`;
+		const baseURL = `http://${window.location.host}/api/example`;
 
-		// TODO: Fetch Real Data
-		// fetch(`http://${window.location.host}/api/example/me`)
-		// 	.then((res) => res.json())
-		// 	.then((json) => {
-		// 		this.setState({
-		// 			myIdentity: json["me"]
-		// 		});
-		// 	})
-		// 	.catch((err) => {
-		// 		console.error(err);
-		// 	});
-		// fetch(`http://${window.location.host}/api/example/peers`)
-		// 	.then((res) => res.json())
-		// 	.then((json) => {
-		// 		this.setState({
-		// 			peers: json["peers"]
-		// 		});
-		// 	})
-		// 	.catch((err) => {
-		// 		console.error(err);
-		// 	});
-		setTimeout(() => {
-			this.setState({
-				myIdentity: 'O=KowloonTraders, L=Kowloon, C=HK'
+		fetch(`${baseURL}/me`)
+			.then((res) => res.json())
+			.then((json) => {
+				this.setState({
+					myIdentity: json['me']
+				});
+			})
+			.catch((err) => {
+				console.error(err);
 			});
-		}, 500);
-		setTimeout(() => {
-			this.setState({
-				peers: [
-					'O=KowloonBank, L=Kowloon, C=HK',
-					'O=DhakaBank, L=Dhaka, C=BD',
-					'O=ChittagongTraders, L=Chittagong, C=BD'
-				],
-				isLoading: false
+
+		fetch(`${baseURL}/peers`)
+			.then((res) => res.json())
+			.then((json) => {
+				this.setState({
+					peers: json['peers'],
+					isLoading: false
+				});
+			})
+			.catch((err) => {
+				console.error(err);
 			});
-		}, 1000);
 	}
 
 	render() {
