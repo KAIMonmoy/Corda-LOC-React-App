@@ -47,7 +47,7 @@ export default class Transaction extends Component {
 				.then((res) => res.json())
 				.then((json) => {
 					this.setState({
-						transactions: json['states'],
+						transaction: json['states'],
 						isFetching: false
 					});
 				})
