@@ -59,6 +59,7 @@ export default class CreatePurchaseOrderScreen extends Component {
 						onChange={(event) => this.setState({ buyer: event.target.value })}
 						required
 					>
+						<option key="" value="" />
 						{this.props.peers.map((peer) => (
 							<option key={peer} value={peer}>
 								{peer}

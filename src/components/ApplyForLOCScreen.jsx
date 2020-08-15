@@ -94,6 +94,7 @@ export default class ApplyForLOCScreen extends Component {
 						onChange={(event) => this.setState({ advisingBank: event.target.value })}
 						required
 					>
+						<option key="" value="" />
 						{this.props.peers.map((peer) => (
 							<option key={peer} value={peer}>
 								{peer}
@@ -109,6 +110,7 @@ export default class ApplyForLOCScreen extends Component {
 						onChange={(event) => this.setState({ issuingBank: event.target.value })}
 						required
 					>
+						<option key="" value="" />
 						{this.props.peers.map((peer) => (
 							<option key={peer} value={peer}>
 								{peer}
