@@ -33,7 +33,7 @@ export default class Transaction extends Component {
 		console.log('Transaction CDM');
 
 		const txType = this.props.match.params.type;
-		const stateId = this.props.match.params.type;
+		const stateId = this.props.match.params.id;
 
 		const baseURL = `http://${window.location.host}/api/example`;
 
@@ -106,6 +106,7 @@ export default class Transaction extends Component {
 		const txStatus = getTransactionStatus(transaction);
 		const txStatusNo = letterOfCreditStages.indexOf(txStatus);
 		const myIdentity = this.props.myIdentity;
+
 		return this.state.isLoading || this.state.isFetching ? (
 			this.getLoadingScreen(txStatusNo, this.state.isFetching)
 		) : (
@@ -474,12 +475,12 @@ export default class Transaction extends Component {
 									/>
 								)}
 								{txStatusNo === 1 &&
-									(myIdentity !== this.state.transaction[0]['buyer'] ? (
+									(myIdentity !== transaction[0]['state']['data']['buyer'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[1]}
 											message={
 												<p>
-													<br /> {`Buyer: ${this.state.transaction[0]['buyer']}`}
+													<br /> {`Buyer: ${transaction[0]['state']['data']['buyer']}`}
 													<br /> is working on
 													<br /> {letterOfCreditStages[1]}!
 												</p>
@@ -488,18 +489,19 @@ export default class Transaction extends Component {
 									) : (
 										<ApplyForLOCScreen
 											{...this.props}
-											purchaseOrder={this.state.transaction[0]}
+											purchaseOrder={transaction[0]}
 											handleOnApplyLOC={this.handleOnApplyLOC}
 											toggleLoadingState={this.toggleLoadingState}
 										/>
 									))}
 								{txStatusNo === 2 &&
-									(myIdentity !== this.state.transaction[1]['issuingBank'] ? (
+									(myIdentity !== transaction[1]['state']['data']['issuingBank'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
 												<p>
-													<br /> {`Issuing Bank: ${this.state.transaction[1]['issuingBank']}`}
+													<br />{' '}
+													{`Issuing Bank: ${transaction[1]['state']['data']['issuingBank']}`}
 													<br /> is working on
 													<br /> {letterOfCreditStages[txStatusNo]}!
 												</p>
@@ -508,7 +510,7 @@ export default class Transaction extends Component {
 									) : (
 										<ApproveLOCScreen
 											{...this.props}
-											loc={this.state.transaction[1]}
+											loc={transaction[1]}
 											handleOnApproveLOC={this.handleOnApproveLOC}
 											toggleLoadingState={this.toggleLoadingState}
 										/>
@@ -524,12 +526,12 @@ export default class Transaction extends Component {
 									/>
 								)}
 								{txStatusNo === 4 &&
-									(myIdentity !== this.state.transaction[1]['seller'] ? (
+									(myIdentity !== transaction[1]['state']['data']['seller'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
 												<p>
-													<br /> {`Seller: ${this.state.transaction[1]['seller']}`}
+													<br /> {`Seller: ${transaction[1]['state']['data']['seller']}`}
 													<br /> is working on
 													<br /> {letterOfCreditStages[txStatusNo]}!
 												</p>
@@ -538,19 +540,21 @@ export default class Transaction extends Component {
 									) : (
 										<ShipProductsScreen
 											{...this.props}
-											loc={this.state.transaction[1]}
+											loc={transaction[1]}
 											handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
 											toggleLoadingState={this.toggleLoadingState}
 										/>
 									))}
 								{txStatusNo === 5 &&
-									(myIdentity !== this.state.transaction[1]['advisingBank'] ? (
+									(myIdentity !== transaction[1]['state']['data']['advisingBank'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
 												<p>
 													<br />{' '}
-													{`Advising Bank: ${this.state.transaction[1]['advisingBank']}`}
+													{`Advising Bank: ${transaction[1]['state']['data'][
+														'advisingBank'
+													]}`}
 													<br /> is working on
 													<br /> {letterOfCreditStages[txStatusNo]}!
 												</p>
@@ -559,18 +563,19 @@ export default class Transaction extends Component {
 									) : (
 										<PaySellerScreen
 											{...this.props}
-											loc={this.state.transaction[1]}
+											loc={transaction[1]}
 											handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
 											toggleLoadingState={this.toggleLoadingState}
 										/>
 									))}
 								{txStatusNo === 6 &&
-									(myIdentity !== this.state.transaction[1]['issuingBank'] ? (
+									(myIdentity !== transaction[1]['state']['data']['issuingBank'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
 												<p>
-													<br /> {`Issuing Bank: ${this.state.transaction[1]['issuingBank']}`}
+													<br />{' '}
+													{`Issuing Bank: ${transaction[1]['state']['data']['issuingBank']}`}
 													<br /> is working on
 													<br /> {letterOfCreditStages[txStatusNo]}!
 												</p>
@@ -579,18 +584,18 @@ export default class Transaction extends Component {
 									) : (
 										<PayAdvisingBankScreen
 											{...this.props}
-											loc={this.state.transaction[1]}
+											loc={transaction[1]}
 											handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
 											toggleLoadingState={this.toggleLoadingState}
 										/>
 									))}
 								{txStatusNo === 7 &&
-									(myIdentity !== this.state.transaction[1]['buyer'] ? (
+									(myIdentity !== transaction[1]['state']['data']['buyer'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
 												<p>
-													<br /> {`Buyer: ${this.state.transaction[1]['buyer']}`}
+													<br /> {`Buyer: ${transaction[1]['state']['data']['buyer']}`}
 													<br /> is working on
 													<br /> {letterOfCreditStages[txStatusNo]}!
 												</p>
@@ -599,7 +604,7 @@ export default class Transaction extends Component {
 									) : (
 										<PayIssuingBankScreen
 											{...this.props}
-											loc={this.state.transaction[1]}
+											loc={transaction[1]}
 											handleModifiedLoCAndBoL={this.handleModifiedLoCAndBoL}
 											toggleLoadingState={this.toggleLoadingState}
 										/>
