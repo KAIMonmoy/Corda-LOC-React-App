@@ -68,7 +68,7 @@ export default class Home extends Component {
 		) : (
 			<div className="ui grid full-height full-width">
 				<div className="ui four wide column profile-column">
-					<div className="ui card">
+					<div className="ui fluid card">
 						<img className="ui small circular image container" src={this.getProfileImage()} alt="" />
 						<div className="content">
 							<p className="header">{myIdentity.split(',')[0].split('=')[1]}</p>
