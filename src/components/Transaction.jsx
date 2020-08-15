@@ -117,7 +117,7 @@ export default class Transaction extends Component {
 				</Link>
 
 				{transaction.length > 0 &&
-				transaction[0] != null && (
+				transaction[0] !== null && (
 					<React.Fragment>
 						<button
 							className="green rounded ui icon button po-button"
@@ -195,7 +195,7 @@ export default class Transaction extends Component {
 				)}
 				{transaction.length > 0 &&
 				txStatusNo > 1 &&
-				transaction[1] != null && (
+				transaction[1] !== null && (
 					<React.Fragment>
 						<button
 							className="green rounded ui icon button loc-button"
@@ -327,7 +327,7 @@ export default class Transaction extends Component {
 				)}
 				{transaction.length > 0 &&
 				txStatusNo > 4 &&
-				transaction[2] != null && (
+				transaction[2] !== null && (
 					<React.Fragment>
 						<button
 							className="green rounded ui icon button bol-button"
@@ -474,7 +474,7 @@ export default class Transaction extends Component {
 									/>
 								)}
 								{txStatusNo === 1 &&
-									(myIdentity != this.state.transaction[0]['buyer'] ? (
+									(myIdentity !== this.state.transaction[0]['buyer'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[1]}
 											message={
@@ -494,7 +494,7 @@ export default class Transaction extends Component {
 										/>
 									))}
 								{txStatusNo === 2 &&
-									(myIdentity != this.state.transaction[1]['issuingBank'] ? (
+									(myIdentity !== this.state.transaction[1]['issuingBank'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
@@ -524,7 +524,7 @@ export default class Transaction extends Component {
 									/>
 								)}
 								{txStatusNo === 4 &&
-									(myIdentity != this.state.transaction[1]['seller'] ? (
+									(myIdentity !== this.state.transaction[1]['seller'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
@@ -544,7 +544,7 @@ export default class Transaction extends Component {
 										/>
 									))}
 								{txStatusNo === 5 &&
-									(myIdentity != this.state.transaction[1]['advisingBank'] ? (
+									(myIdentity !== this.state.transaction[1]['advisingBank'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
@@ -565,7 +565,7 @@ export default class Transaction extends Component {
 										/>
 									))}
 								{txStatusNo === 6 &&
-									(myIdentity != this.state.transaction[1]['issuingBank'] ? (
+									(myIdentity !== this.state.transaction[1]['issuingBank'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
@@ -585,7 +585,7 @@ export default class Transaction extends Component {
 										/>
 									))}
 								{txStatusNo === 7 &&
-									(myIdentity != this.state.transaction[1]['buyer'] ? (
+									(myIdentity !== this.state.transaction[1]['buyer'] ? (
 										<OtherPartyTaskScreen
 											icon={letterOfCreditStageIcons[txStatusNo]}
 											message={
